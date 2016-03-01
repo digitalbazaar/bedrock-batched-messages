@@ -18,8 +18,7 @@ var schema = {
       required: true,
       properties: {
         body: {type: 'string', required: false},
-        holder: {type: 'string', required: true},
-        link: {type: 'string', required: true}
+        holder: {type: 'string', required: true}
       }
     }
   }
