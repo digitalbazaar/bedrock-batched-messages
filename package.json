@@ -28,6 +28,7 @@
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.7",
     "request": "^2.67.0",
+    "bedrock": "^1.0.0",
     "bedrock-express": "^2.0.0",
     "bedrock-mongodb": "^2.0.0",
     "bedrock-passport": "^3.0.0",
