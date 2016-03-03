@@ -1,5 +1,5 @@
 {
-  "name": "bedrock-messages",
+  "name": "bedrock-batched-messages",
   "version": "0.1.0-dev",
   "description": "Bedrock messages module",
   "main": "./lib/messages",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalbazaar/bedrock-messages"
+    "url": "https://github.com/digitalbazaar/bedrock-batched-messages"
   },
   "keywords": [
     "bedrock",
@@ -20,9 +20,9 @@
     "url": "http://digitalbazaar.com"
   },
   "bugs": {
-    "url": "https://github.com/digitalbazaar/bedrock-messages/issues"
+    "url": "https://github.com/digitalbazaar/bedrock-batched-messages/issues"
   },
-  "homepage": "https://github.com/digitalbazaar/bedrock-messages",
+  "homepage": "https://github.com/digitalbazaar/bedrock-batched-messages",
   "dependencies": {
     "async": "^1.5.1",
     "lodash": "^3.10.1",
