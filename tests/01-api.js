@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
  */
  /* globals describe, before, after, it, should, beforeEach, afterEach */
  /* jshint node: true */
@@ -33,7 +33,7 @@ var referenceMessage = {
   content: {
     body: '',
     holder: '',
-    link: '',
+    link: ''
   }
 };
 
@@ -176,7 +176,7 @@ describe('bedrock-messages API requests', function() {
       async.auto({
         store: function(callback) {
           brMessages.store(testMessages, callback);
-        },
+        } //,
         // query: ['store', function(callback, results) {
         //   // check store results
         //   results.store.valid.should.equal(7);
@@ -837,7 +837,8 @@ describe('bedrock-messages API requests', function() {
             return message.id;
           });
           brMessages._bulkDelete(
-            results.getIdentity[0], messageIds, {recipient: recipient}, callback);
+            results.getIdentity[0], messageIds,
+            {recipient: recipient}, callback);
         }],
         test: ['act', function(callback, results) {
           should.exist(results.act);

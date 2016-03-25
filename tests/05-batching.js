@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
  */
  /* globals describe, before, after, it, should, beforeEach, afterEach */
  /* jshint node: true */
@@ -241,7 +241,8 @@ describe('bedrock-messages message batching functions', function() {
         }]
       }, done);
     });
-    it('does nothing when batch is "delivered" first by another process', function(done) {
+    it('does nothing when batch is "delivered" first by another process',
+      function(done) {
       var message = util.clone(mockData.messages.alpha);
       var batch = util.clone(mockData.batches.alpha);
       batch.value.dirty = true;
@@ -253,7 +254,8 @@ describe('bedrock-messages message batching functions', function() {
         insertBatch: function(callback) {
           storeBatch.insert(batch, callback);
         },
-        otherProcessUpdate: ['insertMessage', 'insertBatch', function(callback) {
+        otherProcessUpdate: ['insertMessage', 'insertBatch',
+          function(callback) {
           // Other process increments batch ID
           var q = {id: database.hash(batch.value.recipient)};
           var u = {$inc: {'value.id': 1}};
@@ -282,7 +284,9 @@ describe('bedrock-messages message batching functions', function() {
         }]
       }, done);
     });
-    it('message goes to "ready" state and message stays in join list if batch increments mid-function',
+    // message goes to "ready" state and message stays in join list if
+    // batch increments mid-function
+    it('message is "ready" state and message stays in join list',
       function(done) {
       var message = util.clone(mockData.messages.alpha);
       var batch = util.clone(mockData.batches.alpha);
@@ -296,12 +300,13 @@ describe('bedrock-messages message batching functions', function() {
           storeBatch.insert(batch, callback);
         },
         updateBatch: ['insertMessage', 'insertBatch', function(callback) {
-          brMessages
-            ._batchMessageUpdateBatch(batch.value, message.value, null, callback);
+          brMessages._batchMessageUpdateBatch(
+            batch.value, message.value, null, callback);
         }],
         updateMessage: ['updateBatch', function(callback, results) {
-          brMessages
-            ._batchMessageUpdateMessage(batch.value, message.value, null, {'updateBatch': results.updateBatch}, callback);
+          brMessages._batchMessageUpdateMessage(
+            batch.value, message.value, null,
+            {'updateBatch': results.updateBatch}, callback);
         }],
         otherProcessUpdate: ['updateMessage', function(callback) {
           var q = {id: database.hash(batch.value.recipient)};
@@ -309,8 +314,9 @@ describe('bedrock-messages message batching functions', function() {
           storeBatch.update(q, u, callback);
         }],
         removeFromMap: ['otherProcessUpdate', function(callback, results) {
-          brMessages
-          ._batchMessageRemoveFromMap(batch.value, message.value, null, {'updateMessage': results.updateMessage}, callback);
+          brMessages._batchMessageRemoveFromMap(
+            batch.value, message.value, null,
+            {'updateMessage': results.updateMessage}, callback);
         }],
         messageQuery: ['removeFromMap', function(callback) {
           store.findOne({}, callback);
@@ -349,7 +355,8 @@ describe('bedrock-messages message batching functions', function() {
       if(expectedResult === null) {
         expectedResultStr = 'Result should be null';
       } else {
-        expectedResultStr = 'Resulting message should have "pending" state and id = ';
+        expectedResultStr =
+          'Resulting message should have "pending" state and id = ';
         expectedResultStr += batchData.id;
       }
 
@@ -388,13 +395,16 @@ describe('bedrock-messages message batching functions', function() {
             if(expectedResult === null) {
               should.not.exist(results.getUnbatched);
               results.batchQuery.value.id.should.equal(batch.value.id);
-              results.messageQuery.value.meta.batch.id.should.equal(batch.value.id);
+              results.messageQuery.value.meta.batch.id.should.equal(
+                batch.value.id);
             } else {
               should.exist(results.messageQuery);
               should.exist(results.batchQuery);
 
-              results.batchQuery.value.id.should.equal(results.messageQuery.value.meta.batch.id);
-              results.messageQuery.value.meta.batch.state.should.equal('pending');
+              results.batchQuery.value.id.should.equal(
+                results.messageQuery.value.meta.batch.id);
+              results.messageQuery.value.meta.batch.state.should.equal(
+                'pending');
             }
 
             callback();
@@ -517,7 +527,8 @@ describe('bedrock-messages message batching functions', function() {
         }]
       }, done);
     });
-    it('creates a batch if there is pending messages but no batch for recipient', function(done) {
+    it('creates a batch on pending messages but no batch for recipient',
+      function(done) {
       var message = util.clone(mockData.messages.alpha);
       message.value.meta.batch.state = 'pending';
       async.auto({
@@ -692,9 +703,11 @@ describe('bedrock-messages message batching functions', function() {
             } else {
               should.exist(results.closeBatch.messages);
               results.closeBatch.messages.should.be.an('array');
-              results.closeBatch.messages.should.have.length(expectedResult.length);
+              results.closeBatch.messages.should.have.length(
+                expectedResult.length);
               delete message.value.meta;
-              results.closeBatch.messages[0].value.should.deep.equal(message.value);
+              results.closeBatch.messages[0].value.should.deep.equal(
+                message.value);
             }
             callback();
           }]
@@ -790,7 +803,9 @@ describe('bedrock-messages message batching functions', function() {
         }]
       }, done);
     });
-    it('does not advance state illegally when another process updates message batch id mid-function', 
+    // does not advance state illegally when another process updates message
+    // batch id mid-function
+    it('does not advance state when another process updates message batch id',
       function(done) {
       var batch = util.clone(mockData.batches.alpha);
       var message = util.clone(mockData.messages.alpha);
@@ -807,20 +822,20 @@ describe('bedrock-messages message batching functions', function() {
             ._closeBatchReadBatch(batch.value.recipient, null, callback);
         }],
         findMessage: ['readBatch', function(callback, results) {
-          brMessages
-            ._closeBatchFindMessage(batch.value.recipient, null, results, callback);
+          brMessages._closeBatchFindMessage(
+            batch.value.recipient, null, results, callback);
         }],
         updateBatch: ['findMessage', function(callback, results) {
-          brMessages
-            ._closeBatchUpdateBatch(batch.value.recipient, null, results, callback);
+          brMessages._closeBatchUpdateBatch(
+            batch.value.recipient, null, results, callback);
         }],
         otherProcessUpdate: ['updateBatch', function(callback) {
           var u = {$inc: {'value.meta.batch.id': 1}};
           store.update({}, u, callback);
         }],
         getMessages: ['otherProcessUpdate', function(callback, results) {
-          brMessages
-          ._closeBatchGetMessages(batch.value.recipient, null, results, callback);
+          brMessages._closeBatchGetMessages(
+            batch.value.recipient, null, results, callback);
         }],
         messageQuery: ['getMessages', function(callback) {
           store.findOne({}, callback);
@@ -864,16 +879,16 @@ describe('bedrock-messages message batching functions', function() {
           storeBatch.update({}, u, callback);
         }],
         findMessage: ['otherProcessUpdate', function(callback, results) {
-          brMessages
-            ._closeBatchFindMessage(batch.value.recipient, null, results, callback);
+          brMessages._closeBatchFindMessage(
+            batch.value.recipient, null, results, callback);
         }],
         updateBatch: ['findMessage', function(callback, results) {
-          brMessages
-            ._closeBatchUpdateBatch(batch.value.recipient, null, results, callback);
+          brMessages._closeBatchUpdateBatch(
+            batch.value.recipient, null, results, callback);
         }],
         getMessages: ['updateBatch', function(callback, results) {
-          brMessages
-          ._closeBatchGetMessages(batch.value.recipient, function(err, results) {
+          brMessages._closeBatchGetMessages(
+            batch.value.recipient, function(err, results) {
             // Should return here, with null err and results.
             callback();
           }, callback, results);
@@ -990,7 +1005,8 @@ describe('bedrock-messages message batching functions', function() {
           test: ['batchQuery', 'messageQuery', function(callback, results) {
             should.exist(results.messageQuery);
             should.exist(results.batchQuery);
-            results.batchQuery.value.id.should.equal(results.messageQuery.value.meta.batch.id);
+            results.batchQuery.value.id.should.equal(
+              results.messageQuery.value.meta.batch.id);
             results.messageQuery.value.meta.batch.state.should.equal('pending');
             callback();
           }]
