@@ -25,7 +25,7 @@
   "homepage": "https://github.com/digitalbazaar/bedrock-batched-messages",
   "dependencies": {
     "async": "^1.5.1",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "node-uuid": "^1.4.7",
     "request": "^2.67.0"
   },
