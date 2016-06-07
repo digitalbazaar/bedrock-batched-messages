@@ -31,9 +31,9 @@
   },
   "peerDependencies": {
     "bedrock": "^1.0.0",
-    "bedrock-express": "^2.0.0",
+    "bedrock-express": "^2.0.3",
     "bedrock-jobs": "^2.0.0",
-    "bedrock-mongodb": "^2.0.0",
+    "bedrock-mongodb": "^3.0.0",
     "bedrock-passport": "^3.0.0",
     "bedrock-permission": "^2.3.0",
     "bedrock-rest": "^2.0.0",
