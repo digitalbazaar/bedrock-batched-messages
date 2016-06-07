@@ -1,6 +1,6 @@
 {
   "name": "bedrock-batched-messages",
-  "version": "0.1.1",
+  "version": "0.1.2-dev",
   "description": "Bedrock messages module",
   "main": "./lib/messages",
   "scripts": {
