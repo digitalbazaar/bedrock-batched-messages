@@ -10,7 +10,7 @@ var async = require('async');
 var brKey = require('bedrock-key');
 var brIdentity = require('bedrock-identity');
 var config = require('bedrock').config;
-var uuid = require('node-uuid').v4;
+var uuid = require('uuid').v4;
 var database = require('bedrock-mongodb');
 
 var api = {};

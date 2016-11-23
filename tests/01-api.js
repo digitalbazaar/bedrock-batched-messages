@@ -15,7 +15,7 @@ var config = bedrock.config;
 var database = require('bedrock-mongodb');
 var helpers = require('./helpers');
 var mockData = require('./mock.data');
-var uuid = require('node-uuid').v4;
+var uuid = require('uuid').v4;
 
 var store = database.collections.messages;
 var storeInvalid = database.collections.invalidMessages;

@@ -17,7 +17,7 @@ var helpers = require('./helpers');
 var mockData = require('./mock.data');
 var stateData = require('./state.data');
 var util = bedrock.util;
-var uuid = require('node-uuid').v4;
+var uuid = require('uuid').v4;
 
 var store = database.collections.messages;
 var storeBatch = database.collections.messagesBatch;

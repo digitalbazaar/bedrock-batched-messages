@@ -18,7 +18,7 @@ var brIdentity = require('bedrock-identity');
 var database = require('bedrock-mongodb');
 var request = require('request');
 var mockData = require('./mock.data');
-var uuid = require('node-uuid').v4;
+var uuid = require('uuid').v4;
 request = request.defaults({json: true});
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
